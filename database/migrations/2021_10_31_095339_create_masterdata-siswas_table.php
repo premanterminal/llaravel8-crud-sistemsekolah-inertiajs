@@ -13,8 +13,12 @@ class CreateMasterdataSiswasTable extends Migration
      */
     public function up()
     {
-        Schema::create('masterdata-siswas', function (Blueprint $table) {
+        Schema::create('md_siswa', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_siswa');
+            $table->string('id_kelas');
+            $table->string('status');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }

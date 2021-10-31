@@ -13,8 +13,13 @@ class CreateMasterdataGurusTable extends Migration
      */
     public function up()
     {
-        Schema::create('masterdata-gurus', function (Blueprint $table) {
+        Schema::create('md_guru', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_guru');
+            $table->string('id_mapel');
+            $table->string('id_kelas');
+            $table->string('status');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
