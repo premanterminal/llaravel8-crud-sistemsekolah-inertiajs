@@ -4,6 +4,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\MasterDataGuruController; //LOAD CONTROLLER GURU
+use App\Http\Controllers\MasterDataSiswaController; //LOAD CONTROLLER SISWA
+use App\Http\Controllers\MasterDataKelasController; //LOAD CONTROLLER KELAS
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +18,6 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -24,6 +27,17 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+//GROUPING DENGAN MENGGUNAKAN MIDDLEWARE
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
+    //ROUTING UNTUK HALAMAN DASHBOARD
+    Route::get('/dashboard', function() {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+  
+    //RESTFUL ROUTING UNTUK HALAMAN GURU
+    Route::resource('masterdata-guru', MasterDataGuruController::class);
+    //RESTFUL ROUTING UNTUK HALAMAN SISWA
+    Route::resource('masterdata-siswa', MasterDataSiswaController::class);
+    //RESTFUL ROUTING UNTUK HALAMAN KELAS
+    Route::resource('masterdata-kelas', MasterDataKelasController::class);
+});
